@@ -17,7 +17,11 @@ export class Cp extends Command {
         }
 
         await fs.promises.access(filePath);
-        await fs.promises.access(newFileDirectory);
+        const dirStat = await fs.promises.stat(newFileDirectory);
+
+        if (dirStat.isFile()){
+            throw new Error('Cannot copy to file');
+        }
 
         try {
             await fs.promises.access(targetFilePath);
