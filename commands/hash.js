@@ -9,7 +9,7 @@ export class Hash extends Command {
         if (args.getArgs().length !== 1) {
             throw new Error('Invalid argument count');
         }
-        const filePath = path.join(app.getCurrentPath(), args.getIndexArg(0));
+        const filePath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
 
         const stat  = await fs.stat(filePath)
         if (!stat.isFile()) {
@@ -20,7 +20,7 @@ export class Hash extends Command {
 
     }
     async execute(app, args) {
-        const filePath = path.join(app.getCurrentPath(), args.getIndexArg(0));
+        const filePath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
         const hashSum = createHash('SHA256');
         const readStream = createReadStream(filePath);
         readStream.on('data', (chunk) => {

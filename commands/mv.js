@@ -7,9 +7,9 @@ export class Mv extends Command {
         if (args.getArgs().length !== 2) {
             throw new Error('Invalid argument count');
         }
-        const filePath = path.join(app.getCurrentPath(), args.getIndexArg(0));
-        const newFileDirectory = path.join(app.getCurrentPath(), args.getIndexArg(1));
-        const targetFilePath = path.join(newFileDirectory,args.getIndexArg(0));
+        const filePath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
+        const newFileDirectory = path.resolve(app.getCurrentPath(), args.getIndexArg(1));
+        const targetFilePath = path.resolve(newFileDirectory,args.getIndexArg(0));
 
         const stat  = await fs.promises.stat(filePath)
         if (!stat.isFile()) {
@@ -28,9 +28,9 @@ export class Mv extends Command {
         throw new Error('File already exists')
     }
     async execute(app, args) {
-        const filePath = path.join(app.getCurrentPath(), args.getIndexArg(0));
-        const newFileDirectory = path.join(app.getCurrentPath(), args.getIndexArg(1));
-        const targetFilePath = path.join(newFileDirectory, args.getIndexArg(0));
+        const filePath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
+        const newFileDirectory = path.resolve(app.getCurrentPath(), args.getIndexArg(1));
+        const targetFilePath = path.resolve(newFileDirectory, args.getIndexArg(0));
 
         const readStream = fs.createReadStream(filePath);
         const writeStream = fs.createWriteStream(targetFilePath);

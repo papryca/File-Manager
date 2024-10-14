@@ -43,6 +43,7 @@ export class Application {
         const userName = args.getNamed('username');
         console.log(`Welcome to the File Manager, ${userName}!`);
         console.log(`You are currently in ${this.getCurrentPath()}`);
+        console.log('Enter the command:');
 
         function exitFunc(name) {
             console.log(`Thank you for using File Manager, ${name}, goodbye!`);

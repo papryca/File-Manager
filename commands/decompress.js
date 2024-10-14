@@ -9,7 +9,7 @@ export class Decompress extends Command {
         if (args.getArgs().length !== 2) {
             throw new Error('Invalid argument count');
         }
-        const filePath = path.join(app.getCurrentPath(), args.getIndexArg(0));
+        const filePath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
 
         const stat  = await fs.stat(filePath)
         if (!stat.isFile()) {
@@ -20,8 +20,8 @@ export class Decompress extends Command {
 
     }
     async execute(app, args) {
-        const fileDecompressPath = path.join(app.getCurrentPath(), args.getIndexArg(0));
-        const outputFile = path.join(app.getCurrentPath(), args.getIndexArg(1));
+        const fileDecompressPath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
+        const outputFile = path.resolve(app.getCurrentPath(), args.getIndexArg(1));
 
         const readStream = createReadStream(fileDecompressPath);
         const writeStream = createWriteStream(outputFile);

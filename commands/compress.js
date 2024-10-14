@@ -9,7 +9,7 @@ export class Compress extends Command {
         if (args.getArgs().length !== 2) {
             throw new Error('Invalid argument count');
         }
-        const filePath = path.join(app.getCurrentPath(), args.getIndexArg(0));
+        const filePath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
 
         const stat  = await fs.stat(filePath)
         if (!stat.isFile()) {
@@ -20,8 +20,8 @@ export class Compress extends Command {
 
     }
     async execute(app, args) {
-        const fileToCompressPath = path.join(app.getCurrentPath(), args.getIndexArg(0));
-        const outputFile = path.join(app.getCurrentPath(), args.getIndexArg(1));
+        const fileToCompressPath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
+        const outputFile = path.resolve(app.getCurrentPath(), args.getIndexArg(1));
 
         const readStream = createReadStream(fileToCompressPath);
         const writeStream = createWriteStream(outputFile);

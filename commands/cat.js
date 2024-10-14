@@ -11,7 +11,7 @@ export class Cat extends Command {
 
         const fileName = args.getIndexArg(0);
 
-        const filePath = path.join(app.getCurrentPath(), fileName);
+        const filePath = path.resolve(app.getCurrentPath(), fileName);
         const stat  = await fs.stat(filePath)
         if (!stat.isFile()) {
             throw new Error('Cannot read directory');
@@ -19,7 +19,7 @@ export class Cat extends Command {
     }
     async execute(app, args) {
         const fileToReadPath= app.getCurrentPath();
-        const fullPath = path.join(fileToReadPath, args.getIndexArg(0));
+        const fullPath = path.resolve(fileToReadPath, args.getIndexArg(0));
         const readStream = createReadStream(fullPath, 'utf-8');
         readStream.on('data', (chunk) => {
             process.stdout.write(chunk + '\n');

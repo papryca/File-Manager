@@ -3,13 +3,17 @@ import {Command} from "./command.js";
 import fs from "fs/promises";
 
 export class List extends Command {
-
+    async validate(app, args) {
+        if (args.getArgs().length !== 0) {
+            throw new Error('Invalid arguments for "ls" command. No arguments expected.');
+        }
+    }
     async execute(app, args) {
         const files = await fs.readdir(app.getCurrentPath());
         const data = [];
 
         for (const file of files) {
-            const filePath = path.join(app.getCurrentPath(),file);
+            const filePath = path.resolve(app.getCurrentPath(),file);
             const stats =  await fs.lstat(filePath);
             data.push({
                 Name: file,

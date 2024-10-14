@@ -11,7 +11,7 @@ export class ChangeDirectory extends Command {
 
         const dirName = args.getIndexArg(0);
 
-        const filePath = path.join(app.getCurrentPath(), dirName);
+        const filePath = path.resolve(app.getCurrentPath(), dirName);
         const stat  = await fs.stat(filePath)
         if (!stat.isDirectory()) {
             throw new Error('Cannot change directory to file');
@@ -20,6 +20,6 @@ export class ChangeDirectory extends Command {
 
     async execute(app, args) {
         const dirName = args.getIndexArg(0);
-        app.setCurrentPath(path.join(app.getCurrentPath(), dirName))
+        app.setCurrentPath(path.resolve(app.getCurrentPath(), dirName))
     }
 }

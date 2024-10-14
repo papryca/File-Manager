@@ -7,7 +7,7 @@ export class Rm extends Command {
         if (args.getArgs().length !== 1) {
             throw new Error('Invalid argument count');
         }
-        const filePath = path.join(app.getCurrentPath(), args.getIndexArg(0));
+        const filePath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
 
         const stat = await fs.promises.stat(filePath)
         if (!stat.isFile()) {
@@ -18,7 +18,7 @@ export class Rm extends Command {
     }
 
     async execute(app, args) {
-        const filePath = path.join(app.getCurrentPath(), args.getIndexArg(0));
+        const filePath = path.resolve(app.getCurrentPath(), args.getIndexArg(0));
         await fs.promises.unlink(filePath);
     }
 
