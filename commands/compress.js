@@ -1,7 +1,6 @@
 import {Command} from "./command.js";
 import path from "path";
 import fs from "fs/promises";
-import {createHash} from "crypto";
 import {createReadStream, createWriteStream} from "fs";
 import { createBrotliCompress } from 'zlib';
 
